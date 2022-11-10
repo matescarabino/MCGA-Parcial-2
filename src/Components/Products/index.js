@@ -2,9 +2,12 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './products.module.css';
+import Modal from '../Shared/Modal/index';
 
 const Products = (props) => {
   const [products, setProducts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [productId, setProductId] = useState(undefined);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -34,8 +37,19 @@ const Products = (props) => {
     }
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <section className={styles.container}>
+      <Modal
+        show={showModal}
+        closeModal={closeModal}
+        deleteProduct={deleteProduct}
+        productId={productId}
+        title="Do you want to delete this Product?"
+      />
       <div className={styles.list}>
         <div className={styles.tableTitle}>
           <h2>Products</h2>
@@ -68,7 +82,7 @@ const Products = (props) => {
                   <td className={styles.textLeft}>$ {product.price['$numberDecimal']}</td>
                   <td className={styles.textLeft}>{product.stock}</td>
                   <td className={styles.buttons}>
-                    <Link to={`/products/${product._id}`}>
+                    <Link to={`/products/form/${product._id}`}>
                       <button className={styles.update}>
                         <img src="/assets/icons/edit.svg" alt="update" />
                       </button>
@@ -76,7 +90,8 @@ const Products = (props) => {
                     <button
                       className={styles.delete}
                       onClick={() => {
-                        deleteProduct(product._id)
+                        setShowModal(true);
+                        setProductId(product._id);
                       }}
                     >
                       <img src="/assets/icons/trash.svg" alt="delete" />

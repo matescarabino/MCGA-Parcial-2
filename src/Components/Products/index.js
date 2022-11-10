@@ -1,5 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './products.module.css';
 
 const Products = (props) => {
@@ -17,7 +18,21 @@ const Products = (props) => {
     fetchProducts();
   }, []);
 
-  console.log(products)
+  const deleteProduct = async (id) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/product/delete/${id}`, {
+        method: 'DELETE'
+      });
+      if (response.status === 202) {
+        alert('Product removed.');
+        setProducts([...products.filter((product) => product._id !== id)]);
+      } else {
+        alert('Product could not be removed.');
+      }
+    } catch (error) {
+      alert('Product could not be removed.', error);
+    }
+  };
 
   return (
     <section className={styles.container}>
@@ -50,13 +65,20 @@ const Products = (props) => {
                 <tr key={product._id}>
                   <td className={styles.textLeft}>{product.name}</td>
                   <td className={styles.textLeft}>{product.description}</td>
-                  <td className={styles.textLeft}>{product.price['$numberDecimal']}</td>
+                  <td className={styles.textLeft}>$ {product.price['$numberDecimal']}</td>
                   <td className={styles.textLeft}>{product.stock}</td>
                   <td className={styles.buttons}>
-                    <button className={styles.update}>
-                      <img src="/assets/icons/edit.svg" alt="update" />
-                    </button>
-                    <button className={styles.delete}>
+                    <Link to={`/products/${product._id}`}>
+                      <button className={styles.update}>
+                        <img src="/assets/icons/edit.svg" alt="update" />
+                      </button>
+                    </Link>
+                    <button
+                      className={styles.delete}
+                      onClick={() => {
+                        deleteProduct(product._id)
+                      }}
+                    >
                       <img src="/assets/icons/trash.svg" alt="delete" />
                     </button>
                   </td>

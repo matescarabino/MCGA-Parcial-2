@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './products.module.css';
-import Modal from '../Shared/Modal/index';
+import Modal from '../../Components/Shared/Modal';
 
 const Products = (props) => {
   const [products, setProducts] = useState([]);

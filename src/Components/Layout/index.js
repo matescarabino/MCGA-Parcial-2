@@ -1,11 +1,11 @@
 import React from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import styles from './layout.module.css';
-import Header from '../Header/index';
-import Footer from '../Footer/index';
-import Home from '../Home/index';
-import Products from '../Products/index';
-import ProductsForm from '../Products/Form';
+import Header from '../Header';
+import Footer from '../Footer';
+import Home from '../Home';
+import Products from '../../Screens/Products';
+import ProductsForm from '../../Screens/Products/Form';
 
 const Layout = () => {
   return (
@@ -15,6 +15,7 @@ const Layout = () => {
         <Route exact path="/home" component={Home} />
         <Route exact path="/products" component={Products} />
         <Route path="/products/form" component={ProductsForm} />
+        <Route path="/products/:id" component={ProductsForm} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>

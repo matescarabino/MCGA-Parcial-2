@@ -15,6 +15,7 @@ const Layout = () => {
         <Route exact path="/home" component={Home} />
         <Route exact path="/products" component={Products} />
         <Route path="/products/form" component={ProductsForm} />
+        <Route path="/products/:id" component={ProductsForm} />
         <Route exact path="/">
           <Redirect to="/home" />
         </Route>

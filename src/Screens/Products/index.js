@@ -3,22 +3,19 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './products.module.css';
 import Modal from '../../Components/Shared/Modal';
+import { useSelector, useDispatch } from 'react-redux';
+import { getProducts } from '../../redux/products/thunks';
 
 const Products = (props) => {
+  const productsList = useSelector((state) => state.products.list);
+  const dispatch = useDispatch();
+
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [productId, setProductId] = useState(undefined);
 
   useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/products/`);
-        const json = await response.json();
-        setProducts(json.data);
-      } catch (error) {
-        alert('Could not GET Products.', error);
-      }}
-    fetchProducts();
+    dispatch(getProducts());
   }, []);
 
   const deleteProduct = async (id) => {
@@ -39,6 +36,7 @@ const Products = (props) => {
 
   const closeModal = () => {
     setShowModal(false);
+    dispatch(getProducts());
   };
 
   return (
@@ -74,7 +72,7 @@ const Products = (props) => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => {
+            {productsList.map((product) => {
               return (
                 <tr key={product._id}>
                   <td className={styles.textLeft}>{product.name}</td>

@@ -5,13 +5,13 @@ import Input from '../../../Components/Shared/Input';
 import { useForm } from "react-hook-form";
 
 const Form = (props) => {
- 
+
   const [formMode, setFormMode] = useState(true);
   const [formText, setFormText] = useState('Add Product');
   const params = useParams();
   const id = params.id ? params.id : '';
 
-  const { register, setValue, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, setValue, handleSubmit, formState: { errors } } = useForm();
 
   useEffect(() => {
     async function fetchProduct() {
@@ -23,10 +23,10 @@ const Form = (props) => {
           const json = await response.json();
           setFormMode(false);
           setFormText('Update Product');
-          setValue("name", json.data.name); 
-          setValue("description", json.data.description); 
-          setValue("price", json.data.price['$numberDecimal']); 
-          setValue("stock", json.data.stock); 
+          setValue("name", json.data.name);
+          setValue("description", json.data.description);
+          setValue("price", json.data.price['$numberDecimal']);
+          setValue("stock", json.data.stock);
         } catch (error) {
           alert('Could not GET Product.', error);
         }

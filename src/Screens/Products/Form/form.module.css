@@ -1,11 +1,11 @@
 .card {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: right;
   align-self: center;
-  width: 70%;
+  width: 40%;
   margin-left: 15%;
   background-color: white;
 }
@@ -70,4 +70,7 @@ button.cancel{
 
 button.confirm{
   background: #71da71;
+}
+.fail{
+  color: #ff6666;
 }

@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './form.module.css';
 import Input from '../../../Components/Shared/Input';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
-import { getProducts,postProducts,editProducts } from '../../../redux/products/thunks';
+import { postProducts,editProducts } from '../../../redux/products/thunks';
 
 const Form = (props) => {
 
@@ -45,7 +45,7 @@ const Form = (props) => {
     if (formMode) {
       dispatch(postProducts(event.name,event.description,event.price,event.stock));
       window.location.reload();
-      
+
     } else {
        dispatch(editProducts(id,event.name,event.description,event.price,event.stock));
        props.history.push('/products');

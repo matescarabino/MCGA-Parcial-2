@@ -1,6 +1,17 @@
-import { GET_PRODUCTS_ERROR, GET_PRODUCTS_PENDING, GET_PRODUCTS_SUCCESS ,
-        POST_PRODUCTS_ERROR, POST_PRODUCTS_PENDING, POST_PRODUCTS_SUCCESS,
-        EDIT_PRODUCTS_ERROR, EDIT_PRODUCTS_PENDING, EDIT_PRODUCTS_SUCCESS} from './constants';
+import {
+    GET_PRODUCTS_PENDING,
+    GET_PRODUCTS_SUCCESS,
+    GET_PRODUCTS_ERROR,
+    DELETE_PRODUCTS_PENDING,
+    DELETE_PRODUCTS_SUCCESS,
+    DELETE_PRODUCTS_ERROR,
+    POST_PRODUCTS_ERROR,
+    POST_PRODUCTS_PENDING,
+    POST_PRODUCTS_SUCCESS,
+    EDIT_PRODUCTS_ERROR,
+    EDIT_PRODUCTS_PENDING,
+    EDIT_PRODUCTS_SUCCESS
+} from './constants';
 
 export const getProductsPending = () => {
   return {
@@ -21,6 +32,27 @@ export const getProductsError = (error) => {
     payload: error
   };
 };
+
+export const deleteProductsPending = () => {
+  return {
+    type: DELETE_PRODUCTS_PENDING
+  };
+};
+
+export const deleteProductsSuccess = (data) => {
+  return {
+    type: DELETE_PRODUCTS_SUCCESS,
+    payload: data
+  };
+};
+
+export const deleteProductsError = (error) => {
+  return {
+    type: DELETE_PRODUCTS_ERROR,
+    payload: error
+  };
+};
+
 export const postProductsPending = () => {
   return {
     type: POST_PRODUCTS_PENDING
@@ -59,3 +91,5 @@ export const editProductsError = (error) => {
     payload: error
   };
 };
+
+

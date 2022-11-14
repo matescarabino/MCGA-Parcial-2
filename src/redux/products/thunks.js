@@ -1,4 +1,17 @@
-import { getProductsPending, getProductsSuccess, getProductsError,postProductsPending, postProductsSuccess, postProductsError,editProductsPending, editProductsSuccess, editProductsError } from './actions';
+import {
+  getProductsPending,
+  getProductsSuccess,
+  getProductsError,
+  deleteProductsPending,
+  deleteProductsSuccess,
+  deleteProductsError,
+  postProductsPending,
+  postProductsSuccess,
+  postProductsError,
+  editProductsPending,
+  editProductsSuccess,
+  editProductsError
+} from './actions';
 
 export const getProducts = () => {
   return async (dispatch) => {
@@ -7,9 +20,23 @@ export const getProducts = () => {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/products`);
       const json = await response.json();
       dispatch(getProductsSuccess(json.data));
-      return json.data;
     } catch (error) {
       dispatch(getProductsError(error.toString()));
+    }
+  };
+};
+
+export const deleteProducts = (id) => {
+  return async (dispatch) => {
+    dispatch(deleteProductsPending());
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/product/delete/${id}`, {
+        method: 'DELETE'
+      });
+      const json = await response.json();
+      dispatch(deleteProductsSuccess(json.data));
+    } catch (error) {
+      dispatch(deleteProductsError(error.toString()));
     }
   };
 };
@@ -33,7 +60,7 @@ export const postProducts = (name,description,price,stock) => {
         });
         const json = await response.json();
         if (response.status === 201) {
-          dispatch(postProductsSuccess(json.data)); 
+          dispatch(postProductsSuccess(json.data));
           console.log('Product added');
         } else {
           //dispatch(postProductsError(error.toString()));
@@ -65,7 +92,7 @@ export const editProducts = (id,name,description,price,stock) => {
         });
         const json = await response.json();
         if (response.status === 202) {
-          dispatch(editProductsSuccess(json.data)); 
+          dispatch(editProductsSuccess(json.data));
           console.log('Product Added.');
         } else {
           //dispatch(postProductsError(error.toString()));

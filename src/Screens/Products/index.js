@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styles from './products.module.css';
 import Modal from '../../Components/Shared/Modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProducts } from '../../redux/products/thunks';
+import { getProducts,postProducts } from '../../redux/products/thunks';
 
 const Products = (props) => {
   const productsList = useSelector((state) => state.products.list);

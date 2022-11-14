@@ -18,7 +18,7 @@ const Products = (props) => {
 
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, [dispatch]);
 
   const closeModal = () => {
     setShowModal(false);

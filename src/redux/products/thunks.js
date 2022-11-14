@@ -2,6 +2,9 @@ import {
   getProductsPending,
   getProductsSuccess,
   getProductsError,
+  getByIdProductsPending,
+  getByIdProductsSuccess,
+  getByIdProductsError,
   deleteProductsPending,
   deleteProductsSuccess,
   deleteProductsError,
@@ -19,9 +22,30 @@ export const getProducts = () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/products`);
       const json = await response.json();
-      dispatch(getProductsSuccess(json.data));
+      if(response.status !== 200 ){
+        dispatch(getProductsError(json.toString()))
+      }else {
+        dispatch(getProductsSuccess(json.data));
+      }
     } catch (error) {
       dispatch(getProductsError(error.toString()));
+    }
+  };
+};
+
+export const getByIdProducts = (id) => {
+  return async (dispatch) => {
+    dispatch(getByIdProductsPending());
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/product/${id}`);
+      const json = await response.json();
+      if(response.status !== 200 ){
+        dispatch(getByIdProductsError(json.msg.toString()))
+      }else {
+        dispatch(getByIdProductsSuccess(json.data));
+      }
+    } catch (error) {
+      dispatch(getByIdProductsError(error.toString()));
     }
   };
 };
@@ -34,7 +58,11 @@ export const deleteProducts = (id) => {
         method: 'DELETE'
       });
       const json = await response.json();
-      dispatch(deleteProductsSuccess(json.data));
+      if(response.status !== 202 ){
+        dispatch(deleteProductsError(json.toString()))
+      }else {
+        dispatch(deleteProductsSuccess(json.data));
+      }
     } catch (error) {
       dispatch(deleteProductsError(error.toString()));
     }
@@ -63,7 +91,6 @@ export const postProducts = (name,description,price,stock) => {
           dispatch(postProductsSuccess(json.data));
           console.log('Product added');
         } else {
-          //dispatch(postProductsError(error.toString()));
           console.log('Product could not be Added.');
         }
       } catch (error) {
@@ -95,7 +122,6 @@ export const editProducts = (id,name,description,price,stock) => {
           dispatch(editProductsSuccess(json.data));
           console.log('Product Added.');
         } else {
-          //dispatch(postProductsError(error.toString()));
           console.log('Product could not be Added.');
         }
       } catch (error) {

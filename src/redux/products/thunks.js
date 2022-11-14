@@ -1,4 +1,11 @@
-import { getProductsPending, getProductsSuccess, getProductsError } from './actions';
+import {
+  getProductsPending,
+  getProductsSuccess,
+  getProductsError,
+  deleteProductsPending,
+  deleteProductsSuccess,
+  deleteProductsError,
+} from './actions';
 
 export const getProducts = () => {
   return async (dispatch) => {
@@ -7,10 +14,23 @@ export const getProducts = () => {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/products`);
       const json = await response.json();
       dispatch(getProductsSuccess(json.data));
-      return json.data;
     } catch (error) {
       dispatch(getProductsError(error.toString()));
-      // error should be display in a modal
+    }
+  };
+};
+
+export const deleteProducts = (id) => {
+  return async (dispatch) => {
+    dispatch(deleteProductsPending());
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/product/delete/${id}`, {
+        method: 'DELETE'
+      });
+      const json = await response.json();
+      dispatch(deleteProductsSuccess(json.data));
+    } catch (error) {
+      dispatch(deleteProductsError(error.toString()));
     }
   };
 };

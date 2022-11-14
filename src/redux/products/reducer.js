@@ -14,7 +14,7 @@ import {
 } from './constants';
 
 const INITIAL_STATE = {
-    isLoading: false,
+    isPending: false,
     list: [],
     error: false,
 };
@@ -24,73 +24,73 @@ const productReducer = (state = INITIAL_STATE, action) => {
         case GET_PRODUCTS_PENDING:
             return {
                 ...state,
-                isLoading: true
+                isPending: true
             };
         case GET_PRODUCTS_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isPending: false,
                 error: false,
                 list: action.payload
             };
         case GET_PRODUCTS_ERROR:
             return {
                 ...state,
-                isLoading: false,
+                isPending: false,
                 error: action.payload,
             };
         case DELETE_PRODUCTS_PENDING:
             return {
                 ...state,
-                isLoading: true
+                isPending: true
             };
         case DELETE_PRODUCTS_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isPending: false,
                 error: false,
                 list: action.payload
             };
         case DELETE_PRODUCTS_ERROR:
             return {
                 ...state,
-                isLoading: false,
+                isPending: false,
                 error: action.payload,
             };
         case POST_PRODUCTS_PENDING:
             return {
                 ...state,
-                isLoading: true
+                isPending: true
             };
         case POST_PRODUCTS_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isPending: false,
                 error: false,
                 list: action.payload
             };
         case POST_PRODUCTS_ERROR:
             return {
                 ...state,
-                isLoading: false,
+                isPending: false,
                 error: action.payload,
             };
         case EDIT_PRODUCTS_PENDING:
             return {
                 ...state,
-                isLoading: true
+                isPending: true
             };
         case EDIT_PRODUCTS_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
+                isPending: false,
                 error: false,
                 list: action.payload
             };
         case EDIT_PRODUCTS_ERROR:
             return {
                 ...state,
-                isLoading: false,
+                isPending: false,
                 error: action.payload,
             };
         default:

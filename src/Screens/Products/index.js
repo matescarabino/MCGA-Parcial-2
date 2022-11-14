@@ -9,7 +9,7 @@ const Products = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [itemId, setItemId] = useState(null);
   const {
-    isLoading,
+    isPending,
     list: productsList,
     error,
   } = useSelector((state) => state.products);
@@ -24,10 +24,13 @@ const Products = (props) => {
     setShowModal(false);
   };
 
-  if (isLoading) {
+  if (isPending) {
     return (
-      <div className={styles.spinnerContainer}>
-        <img src="/assets/icons/spinner.gif" alt="spinner" />
+      <div className={styles.tableTitle}>
+        <h2>Products</h2>
+        <div className={styles.spinnerContainer}>
+          <img src="/assets/icons/spinner.gif" alt="spinner" />
+        </div>
       </div>
     )
   } else if (error !== false) {
@@ -64,9 +67,9 @@ const Products = (props) => {
           <table>
             <thead>
               <tr>
-                <th className={styles.textLeft}>Name</th>
+                <th className={styles.textLeft}>Product Name</th>
                 <th className={styles.textLeft}>Description</th>
-                <th className={styles.textLeft}>Price</th>
+                <th className={styles.textLeft}>Price USD</th>
                 <th className={styles.textLeft}>Stock</th>
                 <th className={styles.button}></th>
               </tr>

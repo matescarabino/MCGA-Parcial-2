@@ -5,6 +5,12 @@ import {
     DELETE_PRODUCTS_PENDING,
     DELETE_PRODUCTS_SUCCESS,
     DELETE_PRODUCTS_ERROR,
+    POST_PRODUCTS_ERROR,
+    POST_PRODUCTS_PENDING,
+    POST_PRODUCTS_SUCCESS,
+    EDIT_PRODUCTS_ERROR,
+    EDIT_PRODUCTS_PENDING,
+    EDIT_PRODUCTS_SUCCESS
 } from './constants';
 
 const INITIAL_STATE = {
@@ -46,6 +52,42 @@ const productReducer = (state = INITIAL_STATE, action) => {
                 list: action.payload
             };
         case DELETE_PRODUCTS_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload,
+            };
+        case POST_PRODUCTS_PENDING:
+            return {
+                ...state,
+                isLoading: true
+            };
+        case POST_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                error: false,
+                list: action.payload
+            };
+        case POST_PRODUCTS_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload,
+            };
+        case EDIT_PRODUCTS_PENDING:
+            return {
+                ...state,
+                isLoading: true
+            };
+        case EDIT_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                error: false,
+                list: action.payload
+            };
+        case EDIT_PRODUCTS_ERROR:
             return {
                 ...state,
                 isLoading: false,

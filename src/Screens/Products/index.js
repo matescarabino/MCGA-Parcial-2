@@ -16,11 +16,9 @@ const Products = (props) => {
 
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     dispatch(getProducts());
-  }, [dispatch]);
-
+  }, []);
 
   const closeModal = () => {
     setShowModal(false);

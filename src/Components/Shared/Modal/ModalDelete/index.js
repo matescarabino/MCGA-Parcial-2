@@ -12,7 +12,6 @@ const Modal = (props) => {
   const onCloseModal = () => {
     if(props.itemId){
       dispatch(deleteProducts(props.itemId));
-      window.location.reload();
     }
     props.closeModal();
   };

@@ -8,12 +8,16 @@ import {
     DELETE_PRODUCTS_PENDING,
     DELETE_PRODUCTS_SUCCESS,
     DELETE_PRODUCTS_ERROR,
-    POST_PRODUCTS_ERROR,
     POST_PRODUCTS_PENDING,
     POST_PRODUCTS_SUCCESS,
-    EDIT_PRODUCTS_ERROR,
+    POST_PRODUCTS_ERROR,
     EDIT_PRODUCTS_PENDING,
-    EDIT_PRODUCTS_SUCCESS
+    EDIT_PRODUCTS_SUCCESS,
+    EDIT_PRODUCTS_ERROR,
+    MESSAGE_MODAL_OPEN,
+    MESSAGE_MODAL_CLOSE,
+    CONFIRM_MODAL_OPEN,
+    CONFIRM_MODAL_CLOSE
 } from './constants';
 
 export const getProductsPending = () => {
@@ -112,6 +116,32 @@ export const editProductsError = (error) => {
   return {
     type: EDIT_PRODUCTS_ERROR,
     payload: error
+  };
+};
+
+export const messageModalOpen = (content) => {
+  return {
+    type: MESSAGE_MODAL_OPEN,
+    payload: content
+  };
+};
+
+export const messageModalClose = () => {
+  return {
+    type: MESSAGE_MODAL_CLOSE
+  };
+};
+
+export const confirmModalOpen = (content) => {
+  return {
+    type: CONFIRM_MODAL_OPEN,
+    payload: content
+  };
+};
+
+export const confirmModalClose = () => {
+  return {
+    type: CONFIRM_MODAL_CLOSE
   };
 };
 

@@ -4,7 +4,11 @@ import styles from './form.module.css';
 import Input from '../../../Components/Shared/Input';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
-import { getByIdProducts, postProducts, editProducts } from '../../../redux/products/thunks';
+import { getByIdProducts, postProducts, editProducts, getProducts } from '../../../redux/products/thunks';
+import {
+  messageModalClose
+} from '../../../redux/products/actions';
+import ModalMessage from '../../../Components/Shared/Modal/ModalMessage';
 
 const Form = (props) => {
 
@@ -17,9 +21,11 @@ const Form = (props) => {
   const { register, setValue, handleSubmit, formState: { errors } } = useForm();
 
   const {
-    isPending,
+    isLoading,
     item: product,
     error,
+    modalContent,
+    showModalMessage,
   } = useSelector((state) => state.products);
 
 
@@ -44,16 +50,16 @@ const Form = (props) => {
   const onSubmit = async (event) => {
     if (formMode) {
       dispatch(postProducts(event.name, event.description, event.price, event.stock));
-      window.location.reload();
-
     } else {
       dispatch(editProducts(id, event.name, event.description, event.price, event.stock));
-      props.history.push('/products');
-      window.location.reload();
     }
   };
 
-  if (isPending) {
+  const onClose = () => {
+    dispatch(messageModalClose());
+  };
+
+  if (isLoading) {
     return (
       <div className={styles.spinnerContainer}>
         <img src="/assets/icons/spinner.gif" alt="spinner" />
@@ -70,6 +76,12 @@ const Form = (props) => {
   } else {
     return (
       <div>
+        <ModalMessage
+          show={showModalMessage}
+          modalTitle={modalContent.title}
+          modalContent={modalContent.content}
+          onClose={onClose}
+        />
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.card}>
             <div className={styles.cardTitle}>{formText}</div>
@@ -124,8 +136,14 @@ const Form = (props) => {
             </div>
             <div className={styles.cardButton}>
               <div>
-                <button className={styles.cancel} onClick={() => props.history.push('/products')}>
-                  Cancel
+                <button
+                  className={styles.cancel}
+                  onClick={() => {
+                    dispatch(getProducts());
+                    props.history.push('/products');
+                  }}
+                >
+                  Close
                 </button>
               </div>
               <div>

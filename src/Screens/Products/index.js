@@ -1,17 +1,24 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProducts } from '../../redux/products/thunks';
+import { getProducts, deleteProducts } from '../../redux/products/thunks';
+import {
+  confirmModalOpen,
+  confirmModalClose,
+  messageModalClose
+} from '../../redux/products/actions';
 import styles from './products.module.css';
-import ModalDelete from '../../Components/Shared/Modal/ModalDelete';
+import ModalConfirm from '../../Components/Shared/Modal/ModalConfirm';
+import ModalMessage from '../../Components/Shared/Modal/ModalMessage';
 
 const Products = (props) => {
-  const [showModal, setShowModal] = useState(false);
   const [itemId, setItemId] = useState(null);
   const {
     isPending,
     list: productsList,
-    error,
+    modalContent,
+    showModalMessage,
+    showConfirmModal
   } = useSelector((state) => state.products);
 
   const dispatch = useDispatch();
@@ -20,9 +27,19 @@ const Products = (props) => {
     dispatch(getProducts());
   }, [dispatch]);
 
-  const closeModal = () => {
-    setShowModal(false);
+  const onConfirm = () => {
+    dispatch(deleteProducts(itemId));
+    dispatch(confirmModalClose());
   };
+
+  const onCancel = () => {
+    dispatch(confirmModalClose());
+  };
+
+  const onClose = () => {
+    dispatch(messageModalClose());
+  };
+
 
   if (isPending) {
     return (
@@ -32,24 +49,22 @@ const Products = (props) => {
           <img src="/assets/icons/spinner.gif" alt="spinner" />
         </div>
       </div>
-    )
-  } else if (error !== false) {
-    return (
-      <section className={styles.container}>
-        <div className={styles.tableTitle}>
-          <h2>Could not GET products list</h2>
-          <h2>{error}</h2>
-        </div>
-      </section>
-    )
+    ) 
   } else {
     return (
       <section className={styles.container}>
-        <ModalDelete
-          show={showModal}
-          closeModal={closeModal}
-          itemId={itemId}
-          title={'Do you want to delete this Product ?'}
+        <ModalConfirm
+        show={showConfirmModal}
+        modalTitle={modalContent.title}
+        modalContent={modalContent.content}
+        onConfirm={onConfirm}
+        onCancel={onCancel}
+        />
+        <ModalMessage
+        show={showModalMessage}
+        modalTitle={modalContent.title}
+        modalContent={modalContent.content}
+        onClose={onClose}
         />
         <div className={styles.list}>
           <div className={styles.tableTitle}>
@@ -92,7 +107,8 @@ const Products = (props) => {
                         className={styles.delete}
                         onClick={() => {
                           setItemId(product._id);
-                          setShowModal(true);
+                          const content = `Do you want to DELETE Product: ${product.name}`
+                          dispatch(confirmModalOpen(content));
                         }}
                       >
                         <img src="/assets/icons/trash.svg" alt="delete" />

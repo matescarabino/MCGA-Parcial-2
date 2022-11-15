@@ -20,7 +20,7 @@ export const getProducts = () => {
   return async (dispatch) => {
     dispatch(getProductsPending());
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/products`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/product`);
       const json = await response.json();
       if(response.status !== 200 ){
         dispatch(getProductsError(json.toString()))

@@ -7,14 +7,14 @@ import {
   confirmModalClose,
   messageModalClose
 } from '../../redux/products/actions';
-import styles from './products.module.css';
 import ModalConfirm from '../../Components/Shared/Modal/ModalConfirm';
 import ModalMessage from '../../Components/Shared/Modal/ModalMessage';
+import styles from './products.module.css';
 
 const Products = (props) => {
   const [itemId, setItemId] = useState(null);
   const {
-    isPending,
+    isLoading,
     list: productsList,
     modalContent,
     showModalMessage,
@@ -41,15 +41,14 @@ const Products = (props) => {
   };
 
 
-  if (isPending) {
+  if (isLoading) {
     return (
       <div className={styles.tableTitle}>
-        <h2>Products</h2>
         <div className={styles.spinnerContainer}>
           <img src="/assets/icons/spinner.gif" alt="spinner" />
         </div>
       </div>
-    ) 
+    )
   } else {
     return (
       <section className={styles.container}>

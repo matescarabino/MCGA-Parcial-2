@@ -139,7 +139,7 @@ const productReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 isLoading: false,
                 error: false,
-                list: action.payload,
+                list: [...state.list, action.payload],
                 showConfirmModal: false,
                 modalContent: {
                     title: 'SUCCESS!',

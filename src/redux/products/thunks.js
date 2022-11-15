@@ -20,7 +20,7 @@ export const getProducts = () => {
   return async (dispatch) => {
     dispatch(getProductsPending());
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/product`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/products`);
       const json = await response.json();
       if(response.status !== 200 ){
         dispatch(getProductsError(json.toString()))
@@ -89,13 +89,10 @@ export const postProducts = (name,description,price,stock) => {
         const json = await response.json();
         if (response.status === 201) {
           dispatch(postProductsSuccess(json.data));
-          console.log('Product added');
         } else {
-          console.log('Product could not be Added.');
         }
       } catch (error) {
         dispatch(postProductsError(error.toString()));
-        console.log('Product could not be Added.');
       }
   };
 };
@@ -120,13 +117,10 @@ export const editProducts = (id,name,description,price,stock) => {
         const json = await response.json();
         if (response.status === 202) {
           dispatch(editProductsSuccess(json.data));
-          console.log('Product Added.');
         } else {
-          console.log('Product could not be Added.');
         }
       } catch (error) {
         dispatch(editProductsError(error.toString()));
-        console.log('Product could not be Added.');
       }
   };
 };

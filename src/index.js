@@ -8,10 +8,8 @@ import './index.css';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <React.StrictMode>
-      <BrowserRouter>
-        <Layout />
-      </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
   </Provider>,
 );

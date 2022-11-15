@@ -90,6 +90,7 @@ export const postProducts = (name,description,price,stock) => {
         if (response.status === 201) {
           dispatch(postProductsSuccess(json.data));
         } else {
+          dispatch(postProductsError(json.data));
         }
       } catch (error) {
         dispatch(postProductsError(error.toString()));
@@ -118,6 +119,7 @@ export const editProducts = (id,name,description,price,stock) => {
         if (response.status === 202) {
           dispatch(editProductsSuccess(json.data));
         } else {
+          dispatch(editProductsError(json.data));
         }
       } catch (error) {
         dispatch(editProductsError(error.toString()));

@@ -6,6 +6,9 @@ function Footer() {
       <div className={styles.main}>
         <div className={styles.appName}>
           <p>Ojeda - Scarabino</p>
+          <a href="https://github.com/matescarabino/MCGA-Parcial-2" target="_blank" rel="noopener noreferrer">
+              Visit GitHub
+          </a>
         </div>
       </div>
     </footer>

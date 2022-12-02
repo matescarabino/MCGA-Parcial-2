@@ -44,7 +44,9 @@ const LoginLogout = () => {
 
     if (isAuthenticated) {
         return (
-            <button onClick={() => signOut(getAuth())}>Sign out</button>
+            <Link to="/">
+                <button onClick={() => signOut(getAuth())}>Log out</button>
+            </Link>
         )
     } else {
         return (
@@ -55,11 +57,17 @@ const LoginLogout = () => {
     }
 }
 
+
+
 const Welcome = () => {
     const { user } = useAuthState()
+    const { isAuthenticated } = useAuthState()
+
+    if (isAuthenticated) {
     return(
-        <h2>Welcome {user?.email}</h2>
+        <h2 className={styles.welcome}>Welcome {user?.email}</h2>
     )
+    }
 }
 
 const Layout = () => {
@@ -67,10 +75,10 @@ const Layout = () => {
         <>
             <AuthContextProvider>
                 <Router>
-                    <header>
+                    <header className={styles.header}>
                         <nav className={styles.navbar}>
                             <div className={styles.appName}>
-                                MCGA - Parcial 2
+                                MCGA - Final
                             </div>
                             <ul className={styles.rutes}>
                                 <li>

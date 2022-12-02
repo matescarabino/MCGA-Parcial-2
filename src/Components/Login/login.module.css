@@ -70,26 +70,22 @@ label {
   height: 80px;
 }
 
-.container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.buttonCancel {
+  background-color: var(--cancel-color);
+  color: white;
 }
 
-.cardButton {
-  align-items: baseline;
+.buttonSave {
+  background-color: var(--header-table);
 }
 
-.cardButton button {
-  width: 150px;
-  height: 40px;
+.buttonSave:hover {
+  background-color: rgb(138, 144, 168);
+  transition: 0.2s;
 }
 
-button.cancel{
-  background: #ff6666;
-}
-
-button.confirm{
-  background: #71da71;
+.buttonCancel:hover{
+  background-color: #d44a4a;
+  transition: 0.2s;
+  color: white;
 }

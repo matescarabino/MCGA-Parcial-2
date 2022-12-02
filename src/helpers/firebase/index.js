@@ -3,13 +3,13 @@ import { initializeApp } from 'firebase/app'
 import { useState, useEffect, useContext, createContext } from 'react'
 
 export const firebaseApp = initializeApp({
-  apiKey: "AIzaSyBRCFkRrrOp2O-pou1JLaZ0-yewhA6JvJI",
-  authDomain: "mcga-final-scarabino.firebaseapp.com",
-  projectId: "mcga-final-scarabino",
-  storageBucket: "mcga-final-scarabino.appspot.com",
-  messagingSenderId: "521387069930",
-  appId: "1:521387069930:web:f06f7ba3107b4bfca0a293",
-  measurementId: "G-ZCDK5DPYMB"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID
 })
 
 export const AuthContext = createContext()

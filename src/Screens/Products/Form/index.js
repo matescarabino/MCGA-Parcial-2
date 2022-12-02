@@ -97,16 +97,16 @@ const Form = (props) => {
     )
   } else {
     return (
-      <div>
+      <>
         <ModalMessage
           show={showModalMessage}
           modalTitle={modalContent.title}
           modalContent={modalContent.content}
           onClose={onClose}
         />
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className={styles.card}>
-            <div className={styles.cardTitle}>{formText}</div>
+        <div className={styles.container}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <h2>{formText}</h2>
             <Input
               register={register}
               label={'Product'}
@@ -157,9 +157,9 @@ const Form = (props) => {
                 </button>
               </div>
             </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      </>
     );
   }
 };

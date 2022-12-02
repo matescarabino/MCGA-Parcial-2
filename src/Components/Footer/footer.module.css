@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: center;
   background-color: #1a1a1a;
+  bottom: 0;
+  width: 100%;
 }
 
 .main {

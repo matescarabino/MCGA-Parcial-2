@@ -11,7 +11,7 @@ import ModalConfirm from 'Components/Shared/Modal/ModalConfirm';
 import ModalMessage from 'Components/Shared/Modal/ModalMessage';
 import styles from './products.module.css';
 
-import { AuthContextProvider, useAuthState } from 'helpers/firebase'
+import { useAuthState } from 'helpers/firebase'
 
 const Products = (props) => {
   const [itemId, setItemId] = useState(null);
@@ -60,13 +60,13 @@ const Products = (props) => {
     }
   }
 
-  const EditDeleteButtons = (product) => {
+  const EditDeleteButtons = (props) => {
     if (isAuthenticated) {
       return (
         <>
           <td className={styles.buttons}>
 
-          <Link to={`/products/form/${product._id}`}>
+          <Link to={`/products/form/${props.product._id}`}>
             <button className={styles.update}>
               <img src="/assets/icons/edit.svg" alt="update" />
             </button>
@@ -74,8 +74,8 @@ const Products = (props) => {
           <button
             className={styles.delete}
             onClick={() => {
-              setItemId(product._id);
-              const content = `Do you want to DELETE Product: ${product.name}`;
+              setItemId(props.product._id);
+              const content = `Do you want to DELETE Product: ${props.product.name}`;
               dispatch(confirmModalOpen(content));
             }}
           >
@@ -138,7 +138,7 @@ const Products = (props) => {
                     <td className={styles.textLeft}>{product.description}</td>
                     <td className={styles.textLeft}>$ {product.price}</td>
                     <td className={styles.textLeft}>{product.stock}</td>
-                    <EditDeleteButtons  component={product}/>
+                    <EditDeleteButtons  product={product}/>
                   </tr>
                 );
               })}

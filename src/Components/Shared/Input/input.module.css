@@ -34,11 +34,6 @@
   outline: none;
 }
 
-.disabled {
-  border: 1px solid #ccc;
-  color: #ccc;
-}
-
 .inputError {
-  color: rgb(255, 0, 0);
+  color:#ff0404
 }

@@ -3,10 +3,10 @@ import styles from './input.module.css';
 
 const Input = ({ label, disabled, id, register, name, required, placeholder, type, error }) => {
   return (
-    <div className={styles.cardField}>
+    <div className={styles.inputWrapper}>
       <label className={styles.label}>{label}</label>
       <input
-        className={`${disabled && styles.disabled} ${styles.input}`}
+        className={styles.input}
         disabled={disabled}
         id={id}
         name={name}

@@ -5,7 +5,7 @@ const Home = () => {
     <section className={styles.container}>
       <h2>
         <a href="https://github.com/matescarabino/MCGA-Parcial-2" target="_blank" rel="noopener noreferrer">
-          MCGA - Parcial 2
+          MCGA - Final
         </a>
       </h2>
       <h3>Collaborators:</h3>

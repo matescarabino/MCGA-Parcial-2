@@ -1,5 +1,5 @@
 import Input from 'Components/Shared/Input';
-import styles from './form.module.css';
+import styles from './login.module.css';
 
 import { useForm } from "react-hook-form";
 import { joiResolver } from '@hookform/resolvers/joi';
@@ -39,25 +39,23 @@ const Login = () => {
     dispatch(messageModalClose());
   };
 
-  if (isLoading) {
-    return (
-      <div className={styles.spinnerContainer}>
-        <img src="/assets/icons/spinner.gif" alt="spinner" />
-      </div>
-    )
-  } else {
-
-    return (
-      <>
-        <ModalMessage
-          show={showModalMessage}
-          modalTitle={modalContent.title}
-          modalContent={modalContent.content}
-          onClose={onClose}
-        />
-        <div className={styles.card}>
-          <div className={styles.cardTitle}>Login</div>
-          <form onSubmit={handleSubmit(onSubmit)}>
+  return (
+    <>
+      <ModalMessage
+        show={showModalMessage}
+        modalTitle={modalContent.title}
+        modalContent={modalContent.content}
+        onClose={onClose}
+      />
+      <div className={styles.container}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <h2>Login</h2>
+          {isLoading ? (
+            <div className={styles.spinnerContainer}>
+              <img src="/assets/icons/spinner.gif" alt="spinner" />
+            </div>
+          ) : (
+            <>
             <Input
               register={register}
               label={'Email'}
@@ -77,11 +75,12 @@ const Login = () => {
             <div className={styles.cardButton}>
               <button className={styles.confirm} type="submit">Login</button>
             </div>
-          </form>
-        </div>
-      </>
-    )
-  }
-};
+            </>
+          )}
+        </form>
+      </div>
+    </>
+  );
+}
 
 export default Login;

@@ -31,7 +31,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
-        modalContent: { title: 'ERROR!', content: `Could not LOGIN \n${action.payload}` },
+        modalContent: { title: 'ERROR!', content: action.payload },
         showModalMessage: true
       };
       case MESSAGE_MODAL_OPEN:

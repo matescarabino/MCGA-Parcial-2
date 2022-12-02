@@ -1,19 +1,21 @@
 import React from 'react';
 import styles from './input.module.css';
 
-const Input = ({ disabled, id, nameRegister,register, onChange, requiredMany, placeholder, type, value }) => {
+const Input = ({ label, disabled, id, register, name, required, placeholder, type, error }) => {
   return (
-    <div className={styles.inputWrapper}>
+    <div className={styles.cardField}>
+      <label className={styles.label}>{label}</label>
       <input
         className={`${disabled && styles.disabled} ${styles.input}`}
         disabled={disabled}
         id={id}
-        {...register(nameRegister, requiredMany)}
-        onChange={onChange}
+        name={name}
+        {...register(name)}
+        required={required}
         placeholder={placeholder}
         type={type}
-        value={value}
       />
+      {error && <p className={styles.inputError}> {error} </p>}
     </div>
   );
 };

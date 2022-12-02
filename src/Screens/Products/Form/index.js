@@ -10,6 +10,9 @@ import {
 } from '../../../redux/products/actions';
 import ModalMessage from '../../../Components/Shared/Modal/ModalMessage';
 
+import { joiResolver } from '@hookform/resolvers/joi';
+import { productSchema } from './validations';
+
 const Form = (props) => {
 
   const [formMode, setFormMode] = useState(true);
@@ -18,7 +21,18 @@ const Form = (props) => {
   const id = params.id ? params.id : '';
   const dispatch = useDispatch();
 
-  const { register, setValue, handleSubmit, formState: { errors } } = useForm();
+  const [formValues, setFormValues] = useState({});
+
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    reset,
+    formState: { errors },
+  } = useForm({
+    mode: 'onBlur',
+    resolver: joiResolver(productSchema)
+  });
 
   const {
     isLoading,
@@ -30,6 +44,13 @@ const Form = (props) => {
 
 
   useEffect(() => {
+    setFormValues({
+      name: '',
+      description: '',
+      price: '',
+      stock: ''
+    });
+
     if (id) {
       dispatch(getByIdProducts(id));
     }
@@ -57,6 +78,7 @@ const Form = (props) => {
 
   const onClose = () => {
     dispatch(messageModalClose());
+    reset(formValues);
   };
 
   if (isLoading) {
@@ -85,55 +107,38 @@ const Form = (props) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.card}>
             <div className={styles.cardTitle}>{formText}</div>
-            <div>
-              <label>Product</label>
-              <Input
-                register={register}
-                requiredMany={{ required: true, maxLength: 20, minLength: 5, pattern: /(^$)|[a-zA-Z0-9]/ }}
-                nameRegister={'name'}
-                placeholder={'Product Name'}
-              />
-              {errors.name?.type === 'required' && <p className={styles.fail}>Name is required</p>}
-              {errors.name?.type === 'maxLength' && <p className={styles.fail}>MaxLength is 20</p>}
-              {errors.name?.type === 'minLength' && <p className={styles.fail}>MinLength is 5</p>}
-              {errors.name?.type === 'pattern' && <p className={styles.fail}>Spaces are not allowed</p>}
-            </div>
-            <div>
-              <label>Description</label>
-              <Input
-                register={register}
-                nameRegister={'description'}
-                requiredMany={{ required: true, maxLength: 50, pattern: /(^$)|[a-zA-Z0-9]/ }}
-                placeholder={'Description'}
-              />
-              {errors.description?.type === 'required' && <p className={styles.fail}>Description is required</p>}
-              {errors.description?.type === 'maxLength' && <p className={styles.fail} >MaxLength is 50</p>}
-              {errors.description?.type === 'pattern' && <p className={styles.fail} >Spaces are not allowed</p>}
-            </div>
-            <div>
-              <label>Price</label>
-              <Input
-                register={register}
-                nameRegister={'price'}
-                requiredMany={{ required: true, min: 1 }}
-                type="number"
-                placeholder={'Price'}
-              />
-              {errors.price?.type === 'required' && <p className={styles.fail}>Price is required</p>}
-              {errors.price?.type === 'min' && <p className={styles.fail}>Min is 1</p>}
-            </div>
-            <div>
-              <label>Stock</label>
-              <Input
-                register={register}
-                nameRegister={'stock'}
-                requiredMany={{ required: true, min: 1 }}
-                type="number"
-                placeholder={'Stock'}
-              />
-              {errors.stock?.type === 'required' && <p className={styles.fail}>Stock is required</p>}
-              {errors.stock?.type === 'min' && <p className={styles.fail} >Min is 1</p>}
-            </div>
+            <Input
+              register={register}
+              label={'Product'}
+              name="name"
+              type="text"
+              error={errors.name?.message}
+              placeholder={'Product Name'}
+            />
+            <Input
+              register={register}
+              label={'Description'}
+              name="description"
+              type="text"
+              error={errors.description?.message}
+              placeholder={'Description'}
+            />
+            <Input
+              register={register}
+              label={'Price'}
+              name="price"
+              type="number"
+              error={errors.price?.message}
+              placeholder={'Price'}
+            />
+            <Input
+              register={register}
+              label={'Stock'}
+              name="stock"
+              type="number"
+              error={errors.stock?.message}
+              placeholder={'Stock'}
+            />
             <div className={styles.cardButton}>
               <div>
                 <button

@@ -37,7 +37,7 @@ export const getByIdProducts = (id) => {
   return async (dispatch) => {
     dispatch(getByIdProductsPending());
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/product/${id}`);
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/products/${id}`);
       const json = await response.json();
       if(response.status !== 200 ){
         dispatch(getByIdProductsError(json.msg.toString()))
@@ -54,7 +54,7 @@ export const deleteProducts = (id) => {
   return async (dispatch) => {
     dispatch(deleteProductsPending());
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/product/delete/${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/products/delete/${id}`, {
         method: 'DELETE'
       });
       const json = await response.json();
@@ -73,7 +73,7 @@ export const postProducts = (name,description,price,stock) => {
   return async (dispatch) => {
     dispatch(postProductsPending());
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/product/add`,{
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/products/add`,{
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -102,7 +102,7 @@ export const editProducts = (id,name,description,price,stock) => {
   return async (dispatch) => {
     dispatch(editProductsPending());
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/product/update/${id}`,{
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/products/update/${id}`,{
           method: 'PUT',
           headers: {
             Accept: 'application/json',

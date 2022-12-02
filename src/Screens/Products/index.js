@@ -94,7 +94,7 @@ const Products = (props) => {
                   <tr key={product._id}>
                     <td className={styles.textLeft}>{product.name}</td>
                     <td className={styles.textLeft}>{product.description}</td>
-                    <td className={styles.textLeft}>$ {product.price['$numberDecimal']}</td>
+                    <td className={styles.textLeft}>$ {product.price}</td>
                     <td className={styles.textLeft}>{product.stock}</td>
                     <td className={styles.buttons}>
                       <Link to={`/products/${product._id}`}>

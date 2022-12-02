@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProducts, deleteProducts } from '../../redux/products/thunks';
+import { getProducts, deleteProducts } from 'redux/products/thunks';
 import {
   confirmModalOpen,
   confirmModalClose,
   messageModalClose
-} from '../../redux/products/actions';
-import ModalConfirm from '../../Components/Shared/Modal/ModalConfirm';
-import ModalMessage from '../../Components/Shared/Modal/ModalMessage';
+} from 'redux/products/actions';
+import ModalConfirm from 'Components/Shared/Modal/ModalConfirm';
+import ModalMessage from 'Components/Shared/Modal/ModalMessage';
 import styles from './products.module.css';
 
 const Products = (props) => {

@@ -1,5 +1,5 @@
 import styles from './modalConfirm.module.css';
-import Button from '../../Button/index';
+import Button from 'Components/Shared/Button/index.js';
 
 const ModalConfirm = ({ show, onCancel, onConfirm, modalTitle, modalContent }) => {
   return (

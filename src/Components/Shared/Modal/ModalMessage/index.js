@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './modalMessage.module.css';
-import Button from '../../Button/index';
+import Button from 'Components/Shared/Button/index.js';
 
 const ModalMessage = ({ show, onClose, modalTitle, modalContent }) => {
   return (

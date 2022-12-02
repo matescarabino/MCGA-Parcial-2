@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './form.module.css';
-import Input from '../../../Components/Shared/Input';
+import Input from 'Components/Shared/Input';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
-import { getByIdProducts, postProducts, editProducts, getProducts } from '../../../redux/products/thunks';
+import { getByIdProducts, postProducts, editProducts, getProducts } from 'redux/products/thunks';
 import {
   messageModalClose
-} from '../../../redux/products/actions';
-import ModalMessage from '../../../Components/Shared/Modal/ModalMessage';
+} from 'redux/products/actions';
+import ModalMessage from 'Components/Shared/Modal/ModalMessage';
 
 import { joiResolver } from '@hookform/resolvers/joi';
 import { productSchema } from './validations';

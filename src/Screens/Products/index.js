@@ -97,7 +97,7 @@ const Products = (props) => {
                     <td className={styles.textLeft}>$ {product.price}</td>
                     <td className={styles.textLeft}>{product.stock}</td>
                     <td className={styles.buttons}>
-                      <Link to={`/products/${product._id}`}>
+                      <Link to={`/products/form/${product._id}`}>
                         <button className={styles.update}>
                           <img src="/assets/icons/edit.svg" alt="update" />
                         </button>

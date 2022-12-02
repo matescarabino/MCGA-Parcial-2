@@ -49,8 +49,8 @@ const Layout = () => {
                 <Route exact path="/" component={Home} />
                 <UnauthenticatedRoute exact path="/login" component={Login} />
                 <AuthenticatedRoute exact path="/products" component={Products} />
-                <AuthenticatedRoute path="/products/form" component={ProductsForm} />
-                <AuthenticatedRoute path="/products/:id" component={ProductsForm} />
+                <AuthenticatedRoute exact path="/products/form" component={ProductsForm} />
+                <AuthenticatedRoute path="/products/form/:id" component={ProductsForm} />
             </Router>
             <Footer />
         </AuthContextProvider>

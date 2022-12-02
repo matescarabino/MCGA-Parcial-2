@@ -2,10 +2,6 @@ import {
   FIREBASE_LOGIN_PENDING,
   FIREBASE_LOGIN_SUCCESS,
   FIREBASE_LOGIN_ERROR,
-  FIREBASE_LOGOUT_PENDING,
-  FIREBASE_LOGOUT_SUCCESS,
-  FIREBASE_LOGOUT_ERROR,
-  FIREBASE_SET_AUTH,
   MESSAGE_MODAL_OPEN,
   MESSAGE_MODAL_CLOSE,
   CONFIRM_MODAL_OPEN,
@@ -18,43 +14,15 @@ export const firebaseLoginPending = () => {
   };
 };
 
-export const firebaseLoginSuccess = (data) => {
+export const firebaseLoginSuccess = () => {
   return {
     type: FIREBASE_LOGIN_SUCCESS,
-    payload: data
   };
 };
 
 export const firebaseLoginError = (data) => {
   return {
     type: FIREBASE_LOGIN_ERROR,
-    payload: data
-  };
-};
-
-export const firebaseLogoutPending = () => {
-  return {
-    type: FIREBASE_LOGOUT_PENDING
-  };
-};
-
-export const firebaseLogoutSuccess = (data) => {
-  return {
-    type: FIREBASE_LOGOUT_SUCCESS,
-    payload: data
-  };
-};
-
-export const firebaseLogoutError = (data) => {
-  return {
-    type: FIREBASE_LOGOUT_ERROR,
-    payload: data
-  };
-};
-
-export const setAuthentication = (data) => {
-  return {
-    type: FIREBASE_SET_AUTH,
     payload: data
   };
 };

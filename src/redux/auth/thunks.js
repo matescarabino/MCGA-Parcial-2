@@ -1,38 +1,24 @@
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { auth } from 'helpers/firebase';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+
 import {
   firebaseLoginPending,
+  firebaseLoginSuccess,
   firebaseLoginError,
-  firebaseLogoutPending,
-  firebaseLogoutSuccess,
-  firebaseLogoutError
 } from './actions';
 
-export const login = (inputData) => {
+export const loginFirebase = (email, password) => {
   return async (dispatch) => {
     dispatch(firebaseLoginPending());
-    try {
-      const response = await signInWithEmailAndPassword(auth, inputData.email, inputData.password);
-      const {
-        token,
-        claims: { role }
-      } = await response.user.getIdTokenResult();
-      sessionStorage.setItem('token', token);
-      return role;
-    } catch (error) {
-      dispatch(firebaseLoginError(error.message));
-    }
-  };
-};
 
-export const logout = () => {
-  return async (dispatch) => {
-    dispatch(firebaseLogoutPending());
+    const auth = getAuth()
+
     try {
-      await signOut(auth);
-      dispatch(firebaseLogoutSuccess());
-    } catch (error) {
-      dispatch(firebaseLogoutError());
+      await signInWithEmailAndPassword(auth, email, password)
+
+      dispatch(firebaseLoginSuccess());
+
+    } catch (e) {
+      dispatch(firebaseLoginError(e.message));
     }
   };
 };

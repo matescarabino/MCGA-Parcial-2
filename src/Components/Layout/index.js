@@ -1,27 +1,60 @@
-import React from 'react';
-import { Redirect, Switch, Route } from 'react-router-dom';
-import styles from './layout.module.css';
-import Header from '../Header';
-import Footer from '../Footer';
-import Home from '../Home';
-import Products from '../../Screens/Products';
-import ProductsForm from '../../Screens/Products/Form';
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+    Redirect
+} from 'react-router-dom'
+import Header from 'Components/Header';
+import Footer from 'Components/Footer';
+import Home from 'Components/Home'
+import Login from 'Components/Login'
+import Products from 'Screens/Products';
+import ProductsForm from 'Screens/Products/Form';
+import { AuthContextProvider, useAuthState } from 'helpers/firebase'
+
+const AuthenticatedRoute = ({ component: C, ...props }) => {
+    const { isAuthenticated } = useAuthState()
+    // console.log(`AuthenticatedRoute: ${isAuthenticated}`)
+    return (
+        <Route
+            {...props}
+            render={routeProps =>
+                isAuthenticated ? <C {...routeProps} /> : <Redirect to="/login" />
+            }
+        />
+    )
+}
+
+const UnauthenticatedRoute = ({ component: C, ...props }) => {
+    const { isAuthenticated } = useAuthState()
+    // console.log(`UnauthenticatedRoute: ${isAuthenticated}`)
+    return (
+        <Route
+            {...props}
+            render={routeProps =>
+                !isAuthenticated ? <C {...routeProps} /> : <Redirect to="/" />
+            }
+        />
+    )
+};
 
 const Layout = () => {
-  return (
-    <div className={styles.container}>
-      <Header />
-      <Switch>
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/products" component={Products} />
-        <Route path="/products/form" component={ProductsForm} />
-        <Route path="/products/:id" component={ProductsForm} />
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </Switch>
-      <Footer />
-    </div>
-  );
+    return (
+        <AuthContextProvider>
+            <Header />
+            <Router>
+                <div>
+                    <Link to="/products">Products</Link> | <Link to="/">Home</Link> | <Link to="/login">Login</Link> |{' '}
+                </div>
+                <Route exact path="/" component={Home} />
+                <UnauthenticatedRoute exact path="/login" component={Login} />
+                <AuthenticatedRoute exact path="/products" component={Products} />
+                <AuthenticatedRoute path="/products/form" component={ProductsForm} />
+                <AuthenticatedRoute path="/products/:id" component={ProductsForm} />
+            </Router>
+            <Footer />
+        </AuthContextProvider>
+    )
 }
-export default Layout;
+
+export default Layout

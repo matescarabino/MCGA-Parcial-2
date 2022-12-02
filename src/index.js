@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Layout from 'Components/Layout';
+// import Layout from 'routes/index';
 import store from 'redux/store';
 import './index.css';
 

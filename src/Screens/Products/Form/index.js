@@ -63,7 +63,7 @@ const Form = (props) => {
       setFormText('Update Product');
       setValue("name", product.name);
       setValue("description", product.description);
-      setValue("price", product.price['$numberDecimal']);
+      setValue("price", product.price);
       setValue("stock", product.stock);
     }
   }, [product]);

@@ -18,7 +18,7 @@ const Login = () => {
     isLoading,
     modalContent,
     showModalMessage,
-  } = useSelector((state) => state.login) || {};;
+  } = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
   const onSubmit = async e => {

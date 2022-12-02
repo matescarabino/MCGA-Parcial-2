@@ -11,6 +11,8 @@ import ModalConfirm from 'Components/Shared/Modal/ModalConfirm';
 import ModalMessage from 'Components/Shared/Modal/ModalMessage';
 import styles from './products.module.css';
 
+import { AuthContextProvider, useAuthState } from 'helpers/firebase'
+
 const Products = (props) => {
   const [itemId, setItemId] = useState(null);
   const {
@@ -40,6 +42,54 @@ const Products = (props) => {
     dispatch(messageModalClose());
   };
 
+  const { isAuthenticated } = useAuthState()
+
+  const AddNewProduct = () => {
+    if (isAuthenticated) {
+      return (
+        <button
+          className={styles.add}
+          onClick={() => {
+            props.history.push('/products/form');
+          }}
+        >
+          <img src="/assets/icons/add.svg" alt="add Products" />
+          <p>Add new Product</p>
+        </button>
+      )
+    }
+  }
+
+  const EditDeleteButtons = (product) => {
+    if (isAuthenticated) {
+      return (
+        <>
+          <td className={styles.buttons}>
+
+          <Link to={`/products/form/${product._id}`}>
+            <button className={styles.update}>
+              <img src="/assets/icons/edit.svg" alt="update" />
+            </button>
+          </Link>
+          <button
+            className={styles.delete}
+            onClick={() => {
+              setItemId(product._id);
+              const content = `Do you want to DELETE Product: ${product.name}`;
+              dispatch(confirmModalOpen(content));
+            }}
+          >
+            <img src="/assets/icons/trash.svg" alt="delete" />
+          </button>
+          </td>
+        </>
+      )
+    }else {
+      return (
+      <td className={styles.buttons}>Must login</td>
+      )
+    }
+  }
 
   if (isLoading) {
     return (
@@ -53,30 +103,22 @@ const Products = (props) => {
     return (
       <section className={styles.container}>
         <ModalConfirm
-        show={showConfirmModal}
-        modalTitle={modalContent.title}
-        modalContent={modalContent.content}
-        onConfirm={onConfirm}
-        onCancel={onCancel}
+          show={showConfirmModal}
+          modalTitle={modalContent.title}
+          modalContent={modalContent.content}
+          onConfirm={onConfirm}
+          onCancel={onCancel}
         />
         <ModalMessage
-        show={showModalMessage}
-        modalTitle={modalContent.title}
-        modalContent={modalContent.content}
-        onClose={onClose}
+          show={showModalMessage}
+          modalTitle={modalContent.title}
+          modalContent={modalContent.content}
+          onClose={onClose}
         />
         <div className={styles.list}>
           <div className={styles.tableTitle}>
             <h2>Products</h2>
-            <button
-              className={styles.add}
-              onClick={() => {
-                props.history.push('/products/form');
-              }}
-            >
-              <img src="/assets/icons/add.svg" alt="add Products" />
-              <p>Add new Product</p>
-            </button>
+            <AddNewProduct />
           </div>
           <table>
             <thead>
@@ -85,7 +127,7 @@ const Products = (props) => {
                 <th className={styles.textLeft}>Description</th>
                 <th className={styles.textLeft}>Price USD</th>
                 <th className={styles.textLeft}>Stock</th>
-                <th className={styles.button}></th>
+                <th className={styles.button}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -96,23 +138,7 @@ const Products = (props) => {
                     <td className={styles.textLeft}>{product.description}</td>
                     <td className={styles.textLeft}>$ {product.price}</td>
                     <td className={styles.textLeft}>{product.stock}</td>
-                    <td className={styles.buttons}>
-                      <Link to={`/products/form/${product._id}`}>
-                        <button className={styles.update}>
-                          <img src="/assets/icons/edit.svg" alt="update" />
-                        </button>
-                      </Link>
-                      <button
-                        className={styles.delete}
-                        onClick={() => {
-                          setItemId(product._id);
-                          const content = `Do you want to DELETE Product: ${product.name}`
-                          dispatch(confirmModalOpen(content));
-                        }}
-                      >
-                        <img src="/assets/icons/trash.svg" alt="delete" />
-                      </button>
-                    </td>
+                    <EditDeleteButtons  component={product}/>
                   </tr>
                 );
               })}

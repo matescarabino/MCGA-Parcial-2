@@ -127,7 +127,7 @@ const Form = (props) => {
               register={register}
               label={'Price'}
               name="price"
-              type="number"
+              type="text"
               error={errors.price?.message}
               placeholder={'Price'}
             />
@@ -135,7 +135,7 @@ const Form = (props) => {
               register={register}
               label={'Stock'}
               name="stock"
-              type="number"
+              type="text"
               error={errors.stock?.message}
               placeholder={'Stock'}
             />

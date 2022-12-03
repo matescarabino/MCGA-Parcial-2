@@ -11,68 +11,89 @@ import Products from 'Screens/Products';
 import ProductsForm from 'Screens/Products/Form';
 
 import { AuthContextProvider, useAuthState } from 'helpers/firebase'
-import { getAuth, signOut } from 'firebase/auth'
+// import { getAuth, signOut } from 'firebase/auth'
+import { logOutFirebase } from 'redux/auth/thunks';
+import ModalMessage from 'Components/Shared/Modal/ModalMessage';
+import {
+    messageModalClose
+} from 'redux/auth/actions';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 import styles from './layout.module.css';
 
-const AuthenticatedRoute = ({ component: C, ...props }) => {
-    const { isAuthenticated } = useAuthState()
-    return (
-        <Route
-            {...props}
-            render={routeProps =>
-                isAuthenticated ? <C {...routeProps} /> : <Redirect to="/login" />
-            }
-        />
-    )
-}
-
-const UnauthenticatedRoute = ({ component: C, ...props }) => {
-    const { isAuthenticated } = useAuthState()
-    return (
-        <Route
-            {...props}
-            render={routeProps =>
-                !isAuthenticated ? <C {...routeProps} /> : <Redirect to="/" />
-            }
-        />
-    )
-};
-
-const LoginLogout = () => {
-    const { isAuthenticated } = useAuthState()
-
-    if (isAuthenticated) {
-        return (
-            <Link to="/">
-                <button onClick={() => signOut(getAuth())}>Log out</button>
-            </Link>
-        )
-    } else {
-        return (
-            <Link to="/login">
-                <button>Login</button>
-            </Link>
-        )
-    }
-}
-
-
-
-const Welcome = () => {
-    const { user } = useAuthState()
-    const { isAuthenticated } = useAuthState()
-
-    if (isAuthenticated) {
-    return(
-        <h2 className={styles.welcome}>Welcome {user?.email}</h2>
-    )
-    }
-}
-
 const Layout = () => {
+    const {
+        modalContent,
+        showModalMessage,
+    } = useSelector((state) => state.login);
+    const dispatch = useDispatch();
+
+    const AuthenticatedRoute = ({ component: C, ...props }) => {
+        const { isAuthenticated } = useAuthState()
+        return (
+            <Route
+                {...props}
+                render={routeProps =>
+                    isAuthenticated ? <C {...routeProps} /> : <Redirect to="/login" />
+                }
+            />
+        )
+    }
+
+    const UnauthenticatedRoute = ({ component: C, ...props }) => {
+        const { isAuthenticated } = useAuthState()
+        return (
+            <Route
+                {...props}
+                render={routeProps =>
+                    !isAuthenticated ? <C {...routeProps} /> : <Redirect to="/" />
+                }
+            />
+        )
+    };
+
+    const LoginLogout = () => {
+        const { isAuthenticated } = useAuthState()
+
+        if (isAuthenticated) {
+            return (
+                <Link to="/">
+                    <button onClick={() => dispatch(logOutFirebase())}>Logout</button>
+                </Link>
+            )
+        } else {
+            return (
+                <Link to="/login">
+                    <button>Login</button>
+                </Link>
+            )
+        }
+    }
+
+    const Welcome = () => {
+        const { user } = useAuthState()
+        const { isAuthenticated } = useAuthState()
+
+        if (isAuthenticated) {
+            return (
+                <h2 className={styles.welcome}>Welcome {user?.email}</h2>
+            )
+        }
+    }
+
+    const onClose = () => {
+        dispatch(messageModalClose());
+      };
+
     return (
         <>
+            <ModalMessage
+                show={showModalMessage}
+                modalTitle={modalContent.title}
+                modalContent={modalContent.content}
+                onClose={onClose}
+            />
             <AuthContextProvider>
                 <Router>
                     <header className={styles.header}>

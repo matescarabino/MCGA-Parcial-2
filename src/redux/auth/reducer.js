@@ -2,6 +2,9 @@ import {
   FIREBASE_LOGIN_PENDING,
   FIREBASE_LOGIN_SUCCESS,
   FIREBASE_LOGIN_ERROR,
+  FIREBASE_LOGOUT_PENDING,
+  FIREBASE_LOGOUT_SUCCESS,
+  FIREBASE_LOGOUT_ERROR,
   MESSAGE_MODAL_OPEN,
   MESSAGE_MODAL_CLOSE,
   CONFIRM_MODAL_OPEN,
@@ -26,6 +29,8 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoading: false,
+        modalContent: { title: 'SUCCESS!', content: `Login Successfully`},
+        showModalMessage: true
       };
     case FIREBASE_LOGIN_ERROR:
       return {
@@ -34,6 +39,25 @@ const authReducer = (state = INITIAL_STATE, action) => {
         modalContent: { title: 'ERROR!', content: action.payload },
         showModalMessage: true
       };
+      case FIREBASE_LOGOUT_PENDING:
+        return {
+          ...state,
+          isLoading: true
+        };
+      case FIREBASE_LOGOUT_SUCCESS:
+        return {
+          ...state,
+          isLoading: false,
+          modalContent: { title: 'SUCCESS!', content: `Logout Successfully`},
+          showModalMessage: true
+        };
+      case FIREBASE_LOGOUT_ERROR:
+        return {
+          ...state,
+          isLoading: false,
+          modalContent: { title: 'ERROR!', content: action.payload },
+          showModalMessage: true
+        };
       case MESSAGE_MODAL_OPEN:
         return {
             ...state,

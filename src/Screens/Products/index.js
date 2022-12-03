@@ -84,10 +84,12 @@ const Products = (props) => {
           </td>
         </>
       )
-    }else {
-      return (
-      <td className={styles.buttons}>Must login</td>
-      )
+    }
+  }
+
+  const Actions = () => {
+    if (isAuthenticated) {
+      return (<th className={styles.button}>Actions</th>)
     }
   }
 
@@ -127,7 +129,7 @@ const Products = (props) => {
                 <th className={styles.textLeft}>Description</th>
                 <th className={styles.textLeft}>Price USD</th>
                 <th className={styles.textLeft}>Stock</th>
-                <th className={styles.button}>Actions</th>
+                <Actions />
               </tr>
             </thead>
             <tbody>

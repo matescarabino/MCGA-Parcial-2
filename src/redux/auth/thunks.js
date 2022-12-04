@@ -21,7 +21,6 @@ export const loginFirebase = (email, password) => {
         sessionStorage.setItem('token', userCred.user.accessToken);
       });
 
-
       dispatch(firebaseLoginSuccess());
 
     } catch (e) {
@@ -36,6 +35,7 @@ export const logOutFirebase = () => {
 
     try {
       await signOut(getAuth())
+      .then(sessionStorage.clear());
 
       dispatch(firebaseLogOutSuccess());
 

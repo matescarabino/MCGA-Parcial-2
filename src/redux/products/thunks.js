@@ -56,7 +56,11 @@ export const deleteProducts = (id, token) => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/products/delete/${id}`, {
         method: 'DELETE',
-        headers: token,
+        headers: {
+          token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
       });
       const json = await response.json();
       if(response.status !== 202 ){

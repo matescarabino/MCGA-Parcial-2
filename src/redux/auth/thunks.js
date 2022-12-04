@@ -17,6 +17,10 @@ export const loginFirebase = (email, password) => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password)
+      .then((userCred) => {
+        sessionStorage.setItem('token', userCred.user.accessToken);
+      });
+
 
       dispatch(firebaseLoginSuccess());
 

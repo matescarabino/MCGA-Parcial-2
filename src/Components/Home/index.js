@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <section className={styles.container}>
       <div className={styles.card}>
-        <h2>Created by</h2>
+        <h2>Created by ✒️</h2>
         <div className={styles.collaborators}>
           <div className={styles.collaboratorBlock}>
             <h4>

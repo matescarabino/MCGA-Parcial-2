@@ -14,6 +14,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { productSchema } from './validations';
 
 const Form = (props) => {
+  const token = sessionStorage.getItem('token');
 
   const [formMode, setFormMode] = useState(true);
   const [formText, setFormText] = useState('Add Product');
@@ -70,9 +71,9 @@ const Form = (props) => {
 
   const onSubmit = async (event) => {
     if (formMode) {
-      dispatch(postProducts(event.name, event.description, event.price, event.stock));
+      dispatch(postProducts(event.name, event.description, event.price, event.stock, token));
     } else {
-      dispatch(editProducts(id, event.name, event.description, event.price, event.stock));
+      dispatch(editProducts(id, event.name, event.description, event.price, event.stock, token));
     }
   };
 

@@ -14,6 +14,8 @@ import styles from './products.module.css';
 import { useAuthState } from 'helpers/firebase'
 
 const Products = (props) => {
+  const token = sessionStorage.getItem('token');
+
   const [itemId, setItemId] = useState(null);
   const {
     isLoading,
@@ -30,7 +32,7 @@ const Products = (props) => {
   }, [dispatch]);
 
   const onConfirm = () => {
-    dispatch(deleteProducts(itemId));
+    dispatch(deleteProducts(itemId, token));
     dispatch(confirmModalClose());
   };
 

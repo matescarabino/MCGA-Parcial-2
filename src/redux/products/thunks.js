@@ -50,12 +50,13 @@ export const getByIdProducts = (id) => {
   };
 };
 
-export const deleteProducts = (id) => {
+export const deleteProducts = (id, token) => {
   return async (dispatch) => {
     dispatch(deleteProductsPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/products/delete/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: token,
       });
       const json = await response.json();
       if(response.status !== 202 ){
@@ -69,13 +70,14 @@ export const deleteProducts = (id) => {
   };
 };
 
-export const postProducts = (name,description,price,stock) => {
+export const postProducts = (name, description, price, stock, token) => {
   return async (dispatch) => {
     dispatch(postProductsPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/products/add`,{
           method: 'POST',
           headers: {
+            token,
             Accept: 'application/json',
             'Content-Type': 'application/json'
           },
@@ -98,13 +100,14 @@ export const postProducts = (name,description,price,stock) => {
   };
 };
 
-export const editProducts = (id,name,description,price,stock) => {
+export const editProducts = (id, name, description, price, stock, token) => {
   return async (dispatch) => {
     dispatch(editProductsPending());
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/products/update/${id}`,{
           method: 'PUT',
           headers: {
+            token,
             Accept: 'application/json',
             'Content-Type': 'application/json'
           },

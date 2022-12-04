@@ -16,10 +16,11 @@ export const loginFirebase = (email, password) => {
     const auth = getAuth()
 
     try {
-      await signInWithEmailAndPassword(auth, email, password)
-      .then((userCred) => {
-        sessionStorage.setItem('token', userCred.user.accessToken);
-      });
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      const {
+        token,
+      } = await response.user.getIdTokenResult();
+      sessionStorage.setItem('token', token);
 
       dispatch(firebaseLoginSuccess());
 

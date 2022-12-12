@@ -35,8 +35,9 @@ export const logOutFirebase = () => {
     dispatch(firebaseLogOutPending());
 
     try {
-      await signOut(getAuth())
-      .then(sessionStorage.clear());
+      await signOut(getAuth());
+
+      sessionStorage.clear();
 
       dispatch(firebaseLogOutSuccess());
 

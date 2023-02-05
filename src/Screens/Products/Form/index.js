@@ -74,6 +74,8 @@ const Form = (props) => {
       dispatch(postProducts(event.name, event.description, event.price, event.stock, token));
     } else {
       dispatch(editProducts(id, event.name, event.description, event.price, event.stock, token));
+      props.history.push('/products');
+      window.location.reload();
     }
   };
 

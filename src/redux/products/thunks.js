@@ -42,7 +42,7 @@ export const getByIdProducts = (id) => {
       if(response.status !== 200 ){
         dispatch(getByIdProductsError(json.msg.toString()))
       }else {
-        dispatch(getByIdProductsSuccess(json.data));
+        dispatch(getByIdProductsSuccess(json.data[0]));
       }
     } catch (error) {
       dispatch(getByIdProductsError(error.toString()));
